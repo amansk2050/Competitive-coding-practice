@@ -1,0 +1,25 @@
+# @param A : list of integers
+    # @return an integer
+    def largestRectangleArea(self, A):
+        i, n = 0, len(A)
+        
+        max_area, stack = 0, []
+        while i < n :
+            if not stack or A[stack[-1]] <= A[i] :
+                stack.append(i)
+                i += 1
+            else :
+                top = stack.pop()
+                
+                area = (A[top])*(i - stack[-1] - 1 if stack else i)
+
+                max_area = max(max_area, area)
+            
+        while stack :
+            top = stack.pop()
+                
+            area = (A[top])*(i - stack[-1] - 1 if stack else i)
+
+            max_area = max(max_area, area)
+        
+        return max_area
